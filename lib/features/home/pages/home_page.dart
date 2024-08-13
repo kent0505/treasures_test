@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-import '../../../core/config/app_colors.dart';
 import '../../../core/utils.dart';
+import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/buttons/ico_button.dart';
 import '../../../core/widgets/buttons/primary_button.dart';
 import '../../../core/widgets/custom_scaffold.dart';
@@ -61,7 +61,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    onSound();
+    // onSound();
+  }
+
+  @override
+  void dispose() {
+    player.stop();
+    super.dispose();
   }
 
   @override
