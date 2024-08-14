@@ -46,6 +46,18 @@ Future<void> claimCoins() async {
   prefs.setInt('day', day);
 }
 
+Future<void> minusCoins(int amount) async {
+  final prefs = await SharedPreferences.getInstance();
+  coins = coins - amount;
+  prefs.setInt('coins', coins);
+}
+
+Future<void> plusCoins(int amount) async {
+  final prefs = await SharedPreferences.getInstance();
+  coins = coins + amount;
+  prefs.setInt('coins', coins);
+}
+
 int getReward() {
   if (day == 1) return 100;
   if (day == 2) return 300;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
@@ -6,6 +7,7 @@ import '../../../core/utils.dart';
 import '../../../core/widgets/buttons/primary_button.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../../../core/widgets/coins_count_card.dart';
+import '../../reward/bloc/reward_bloc.dart';
 import '../widgets/change_amount.dart';
 import '../widgets/slot_item.dart';
 import '../widgets/slot_widget.dart';
@@ -31,9 +33,12 @@ class _SlotPageState extends State<SlotPage> {
     });
   }
 
-  void onSpin() {
-    setState(() {
-      top = top - 222;
+  void onSpin() async {
+    await minusCoins(amount).then((value) {
+      context.read<RewardBloc>().add(GetCoinsEvent());
+      setState(() {
+        top = top + 222 * 12;
+      });
     });
   }
 

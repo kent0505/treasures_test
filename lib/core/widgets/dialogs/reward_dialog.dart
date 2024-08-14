@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../features/reward/bloc/reward_bloc.dart';
 import '../../config/app_colors.dart';
-import '../../utils.dart';
 
 class RewardDialog extends StatelessWidget {
-  const RewardDialog({super.key});
+  const RewardDialog({
+    super.key,
+    required this.title,
+    required this.reward,
+    this.asset = 'coin',
+    required this.onPressed,
+  });
+
+  final String title;
+  final String reward;
+  final String asset;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +38,23 @@ class RewardDialog extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 12),
-                const Text(
-                  'Your reward\ntoday ',
+                Text(
+                  title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.secondary,
                     fontSize: 24,
                     fontFamily: Fonts.sancreek,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const Spacer(),
                 Image.asset(
-                  'assets/coin.png',
+                  asset.isEmpty ? 'assets/coin.png' : 'assets/$asset.png',
                   width: 67,
                 ),
                 const Spacer(),
                 Text(
-                  getReward().toString(),
+                  reward,
                   style: const TextStyle(
                     color: AppColors.secondary,
                     fontSize: 20,
@@ -70,11 +77,7 @@ class RewardDialog extends StatelessWidget {
               ),
             ),
             child: CupertinoButton(
-              onPressed: () async {
-                claimCoins();
-                context.read<RewardBloc>().add(GetCoinsEvent());
-                context.pop();
-              },
+              onPressed: onPressed,
               padding: EdgeInsets.zero,
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,

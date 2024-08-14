@@ -29,9 +29,8 @@ class SlotWidget extends StatelessWidget {
         children: [
           AnimatedPositioned(
             duration: const Duration(seconds: 2),
-            curve: Curves.easeInOut,
-            // top: -1600,
-            top: top,
+            curve: Curves.easeInOutCirc,
+            bottom: top,
             left: 0,
             right: 0,
             child: Column(children: childrens),

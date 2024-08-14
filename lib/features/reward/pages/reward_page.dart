@@ -23,7 +23,15 @@ class _RewardPageState extends State<RewardPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return const RewardDialog();
+          return RewardDialog(
+            title: 'Your reward\ntoday',
+            reward: getReward().toString(),
+            onPressed: () {
+              claimCoins();
+              context.read<RewardBloc>().add(GetCoinsEvent());
+              context.pop();
+            },
+          );
         },
       );
     } else {
