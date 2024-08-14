@@ -7,10 +7,14 @@ class SlotWidget extends StatelessWidget {
     super.key,
     required this.childrens,
     required this.top,
+    this.left = false,
+    this.right = false,
   });
 
   final List<Widget> childrens;
   final double top;
+  final bool left;
+  final bool right;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,12 @@ class SlotWidget extends StatelessWidget {
       width: 144,
       decoration: BoxDecoration(
         color: AppColors.main,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(left ? 16 : 0),
+          bottomLeft: Radius.circular(left ? 16 : 0),
+          topRight: Radius.circular(right ? 16 : 0),
+          bottomRight: Radius.circular(right ? 16 : 0),
+        ),
         border: Border.all(
           width: 2,
           color: AppColors.secondary,

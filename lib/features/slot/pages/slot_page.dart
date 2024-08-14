@@ -37,69 +37,36 @@ class _SlotPageState extends State<SlotPage> {
     await minusCoins(amount).then((value) {
       context.read<RewardBloc>().add(GetCoinsEvent());
       setState(() {
-        top = top + 222 * 12;
+        top = top - 222 * 12;
       });
     });
   }
 
   List<Widget> childrens1 = [
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot1');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'coin');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot2');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot3');
-    }),
+    ...List.generate(25, (index) => const SlotItem(asset: 'coin')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot1')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot2')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot3')),
   ];
-
   List<Widget> childrens2 = [
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot2');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'coin');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot3');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot1');
-    }),
+    ...List.generate(25, (index) => const SlotItem(asset: 'coin')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot1')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot2')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot3')),
   ];
 
   List<Widget> childrens3 = [
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot3');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot1');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot2');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'coin');
-    }),
+    ...List.generate(25, (index) => const SlotItem(asset: 'coin')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot1')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot2')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot3')),
   ];
 
   List<Widget> childrens4 = [
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'coin');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot1');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot3');
-    }),
-    ...List.generate(25, (index) {
-      return const SlotItem(asset: 'slot2');
-    }),
+    ...List.generate(25, (index) => const SlotItem(asset: 'coin')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot1')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot2')),
+    ...List.generate(25, (index) => const SlotItem(asset: 'slot3')),
   ];
 
   @override
@@ -135,10 +102,10 @@ class _SlotPageState extends State<SlotPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SlotWidget(childrens: childrens1, top: top),
+              SlotWidget(childrens: childrens1, top: top, left: true),
               SlotWidget(childrens: childrens2, top: top),
               SlotWidget(childrens: childrens3, top: top),
-              SlotWidget(childrens: childrens4, top: top),
+              SlotWidget(childrens: childrens4, top: top, right: true),
             ],
           ),
           const Spacer(),
