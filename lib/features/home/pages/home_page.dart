@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    onSound();
+    // onSound();
   }
 
   @override
@@ -76,119 +76,125 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 32 + statusBar(context),
-          bottom: 32,
-          left: 62,
-          right: 32,
-        ),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 157,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      if (state is StartState) return const CoinsCountCard();
-                      return Container();
-                    },
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      IcoButton(
-                        asset: playing ? 'sound1' : 'sound2',
-                        onPressed: onSound,
-                      ),
-                      const SizedBox(width: 8),
-                      IcoButton(
-                        asset: 'settings',
-                        onPressed: onSettings,
-                      ),
-                    ],
-                  ),
-                ],
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        print('POP');
+      },
+      child: CustomScaffold(
+        body: Padding(
+          padding: EdgeInsets.only(
+            top: 32 + statusBar(context),
+            bottom: 32,
+            left: 62,
+            right: 32,
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 157,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state is StartState) return const CoinsCountCard();
+                        return Container();
+                      },
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        IcoButton(
+                          asset: playing ? 'sound1' : 'sound2',
+                          onPressed: onSound,
+                        ),
+                        const SizedBox(width: 8),
+                        IcoButton(
+                          asset: 'settings',
+                          onPressed: onSettings,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Spacer(),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                if (state is StartState) {
+              const Spacer(),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is StartState) {
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            GameCard(
+                              title: 'Slot',
+                              asset: 'slot',
+                              onPressed: onSlot,
+                            ),
+                            const SizedBox(width: 24),
+                            GameCard(
+                              title: 'Roulette',
+                              asset: 'spinner',
+                              onPressed: onRoulette,
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+
                   return Column(
                     children: [
-                      Row(
-                        children: [
-                          GameCard(
-                            title: 'Slot',
-                            asset: 'slot',
-                            onPressed: onSlot,
+                      const Spacer(flex: 3),
+                      const Center(
+                        child: Text(
+                          'Treasures of the\nEastern Emperors',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.secondary,
+                            fontSize: 36,
+                            fontFamily: Fonts.sancreek,
                           ),
-                          const SizedBox(width: 24),
-                          GameCard(
-                            title: 'Roulette',
-                            asset: 'spinner',
-                            onPressed: onRoulette,
-                          ),
-                        ],
+                        ),
+                      ),
+                      const Spacer(),
+                      PrimaryButton(
+                        title: 'Play',
+                        asset: 'play',
+                        width: 110,
+                        onPressed: onPlay,
                       ),
                     ],
                   );
-                }
-
-                return Column(
-                  children: [
-                    const Spacer(flex: 3),
-                    const Center(
-                      child: Text(
-                        'Treasures of the\nEastern Emperors',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.secondary,
-                          fontSize: 36,
-                          fontFamily: Fonts.sancreek,
+                },
+              ),
+              const Spacer(),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return SizedBox(
+                    width: 187,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (state is StartState) const DailyRewardButton(),
+                        const Spacer(),
+                        PrimaryButton(
+                          title: 'Exit',
+                          asset: 'exit',
+                          height: 56,
+                          width: 117,
+                          onPressed: () {
+                            onExit(state);
+                          },
                         ),
-                      ),
+                      ],
                     ),
-                    const Spacer(),
-                    PrimaryButton(
-                      title: 'Play',
-                      asset: 'play',
-                      width: 110,
-                      onPressed: onPlay,
-                    ),
-                  ],
-                );
-              },
-            ),
-            const Spacer(),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                return SizedBox(
-                  width: 187,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (state is StartState) const DailyRewardButton(),
-                      const Spacer(),
-                      PrimaryButton(
-                        title: 'Exit',
-                        asset: 'exit',
-                        height: 56,
-                        width: 117,
-                        onPressed: () {
-                          onExit(state);
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

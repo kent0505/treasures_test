@@ -12,6 +12,7 @@ final routerConfig = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const HomePage(),
+      onExit: (context, state) => false,
     ),
     GoRoute(
       path: '/settings',
