@@ -6,12 +6,17 @@ import '../utils.dart';
 import '../../features/reward/bloc/reward_bloc.dart';
 
 class CoinsCountCard extends StatelessWidget {
-  const CoinsCountCard({super.key});
+  const CoinsCountCard({
+    super.key,
+    this.height = 56,
+  });
+
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: height,
       width: 127,
       decoration: BoxDecoration(
         color: AppColors.main,

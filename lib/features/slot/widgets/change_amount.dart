@@ -25,7 +25,7 @@ class ChangeAmount extends StatelessWidget {
             fontFamily: Fonts.inter,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
