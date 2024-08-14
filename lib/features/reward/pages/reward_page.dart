@@ -30,6 +30,7 @@ class _RewardPageState extends State<RewardPage> {
               claimCoins();
               context.read<RewardBloc>().add(GetCoinsEvent());
               context.pop();
+              setState(() {});
             },
           );
         },
@@ -44,53 +45,42 @@ class _RewardPageState extends State<RewardPage> {
     return CustomScaffold(
       bg: 3,
       back: true,
-      body: BlocListener<RewardBloc, RewardState>(
-        listener: (context, state) {
-          if (state is CoinsLoadedState) {
-            setState(() {});
-          }
-        },
-        child: BlocBuilder<RewardBloc, RewardState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                SizedBox(height: 36 + statusBar(context)),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RewardCard(day: 1, amount: 100),
-                    SizedBox(width: 8),
-                    RewardCard(day: 2, amount: 300),
-                    SizedBox(width: 8),
-                    RewardCard(day: 3, amount: 500),
-                    SizedBox(width: 8),
-                    RewardCard(day: 4, amount: 1000),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RewardCard(day: 5, amount: 2000),
-                    SizedBox(width: 8),
-                    RewardCard(day: 6, amount: 5000),
-                    SizedBox(width: 8),
-                    RewardCard(day: 7, amount: 10000),
-                    SizedBox(width: 8),
-                    RewardCard(day: 8, amount: 15000),
-                  ],
-                ),
-                const Spacer(),
-                PrimaryButton(
-                  title: canClaim ? 'Get daily reward' : 'Come back tomorrow',
-                  width: canClaim ? 200 : 250,
-                  onPressed: onClaim,
-                ),
-                const SizedBox(height: 32),
-              ],
-            );
-          },
-        ),
+      body: Column(
+        children: [
+          SizedBox(height: 36 + statusBar(context)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RewardCard(day: 1, amount: 100, rewarded: getRewarded(1)),
+              const SizedBox(width: 8),
+              RewardCard(day: 2, amount: 300, rewarded: getRewarded(2)),
+              const SizedBox(width: 8),
+              RewardCard(day: 3, amount: 500, rewarded: getRewarded(3)),
+              const SizedBox(width: 8),
+              RewardCard(day: 4, amount: 1000, rewarded: getRewarded(4)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RewardCard(day: 5, amount: 2000, rewarded: getRewarded(5)),
+              const SizedBox(width: 8),
+              RewardCard(day: 6, amount: 5000, rewarded: getRewarded(6)),
+              const SizedBox(width: 8),
+              RewardCard(day: 7, amount: 10000, rewarded: getRewarded(7)),
+              const SizedBox(width: 8),
+              RewardCard(day: 8, amount: 15000, rewarded: getRewarded(8)),
+            ],
+          ),
+          const Spacer(),
+          PrimaryButton(
+            title: canClaim ? 'Get daily reward' : 'Come back tomorrow',
+            width: canClaim ? 200 : 250,
+            onPressed: onClaim,
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

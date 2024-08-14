@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../core/config/app_colors.dart';
-import '../../../core/utils.dart';
 
 class RewardCard extends StatelessWidget {
   const RewardCard({
     super.key,
     required this.day,
     required this.amount,
+    required this.rewarded,
   });
 
   final int day;
   final int amount;
+  final bool rewarded;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class RewardCard extends StatelessWidget {
       height: 104,
       width: 104,
       decoration: BoxDecoration(
-        color: getRewarded(day) ? AppColors.secondary : AppColors.main,
+        color: rewarded ? AppColors.secondary : AppColors.main,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           width: 2,
@@ -32,7 +33,7 @@ class RewardCard extends StatelessWidget {
           Text(
             'Day $day',
             style: TextStyle(
-              color: getRewarded(day) ? AppColors.main : AppColors.secondary,
+              color: rewarded ? AppColors.main : AppColors.secondary,
               fontSize: 14,
               fontFamily: Fonts.inter,
             ),
@@ -46,7 +47,7 @@ class RewardCard extends StatelessWidget {
           Text(
             amount.toString(),
             style: TextStyle(
-              color: getRewarded(day) ? AppColors.main : AppColors.secondary,
+              color: rewarded ? AppColors.main : AppColors.secondary,
               fontSize: 14,
               fontFamily: Fonts.inter,
             ),

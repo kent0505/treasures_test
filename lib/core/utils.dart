@@ -3,18 +3,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-int coins = 0;
+int coins = 100;
 int day = 1;
 int timestamp = 0;
 bool canClaim = true;
 
 Future<void> getData() async {
   final prefs = await SharedPreferences.getInstance();
-  // await prefs.remove('timestamp');
-  // await prefs.remove('day');
-  // await prefs.remove('coins');
-  // await prefs.remove('canClaim');
-  coins = prefs.getInt('coins') ?? 0;
+  await prefs.remove('timestamp');
+  await prefs.remove('day');
+  await prefs.remove('coins');
+  await prefs.remove('canClaim');
+  coins = prefs.getInt('coins') ?? 100;
   day = prefs.getInt('day') ?? 1;
   timestamp = prefs.getInt('timestamp') ?? 0;
   canClaim = prefs.getBool('canClaim') ?? true;
@@ -34,7 +34,7 @@ Future<void> claimCoins() async {
   final prefs = await SharedPreferences.getInstance();
   timestamp = getCurrentTimestamp();
   coins = coins + getReward();
-
+  canClaim = false;
   prefs.setInt('coins', coins);
   prefs.setInt('timestamp', timestamp);
   prefs.setBool('canClaim', false);

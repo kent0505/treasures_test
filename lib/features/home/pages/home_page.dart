@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -53,15 +54,18 @@ class _HomePageState extends State<HomePage> {
     context.read<HomeBloc>().add(PlayEvent());
   }
 
-  void onExit() {
-    context.read<HomeBloc>().add(PlayEvent(exit: true));
-    // SystemNavigator.pop();
+  void onExit(HomeState state) {
+    if (state is StartState) {
+      context.read<HomeBloc>().add(PlayEvent(exit: true));
+    } else {
+      SystemNavigator.pop();
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    // onSound();
+    onSound();
   }
 
   @override
@@ -161,27 +165,28 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             const Spacer(),
-            SizedBox(
-              width: 187,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      if (state is StartState) return const DailyRewardButton();
-                      return Container();
-                    },
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return SizedBox(
+                  width: 187,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (state is StartState) const DailyRewardButton(),
+                      const Spacer(),
+                      PrimaryButton(
+                        title: 'Exit',
+                        asset: 'exit',
+                        height: 56,
+                        width: 117,
+                        onPressed: () {
+                          onExit(state);
+                        },
+                      ),
+                    ],
                   ),
-                  const Spacer(),
-                  PrimaryButton(
-                    title: 'Exit',
-                    asset: 'exit',
-                    height: 56,
-                    width: 117,
-                    onPressed: onExit,
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ],
         ),
