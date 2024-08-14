@@ -9,7 +9,7 @@ import '../../../core/widgets/buttons/ico_button.dart';
 import '../../../core/widgets/buttons/primary_button.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../bloc/home_bloc.dart';
-import '../widgets/coins_count_card.dart';
+import '../../../core/widgets/coins_count_card.dart';
 import '../widgets/daily_reward_button.dart';
 import '../widgets/game_card.dart';
 

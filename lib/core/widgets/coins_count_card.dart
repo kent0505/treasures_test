@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/config/app_colors.dart';
-import '../../../core/utils.dart';
-import '../../reward/bloc/reward_bloc.dart';
+import '../config/app_colors.dart';
+import '../utils.dart';
+import '../../features/reward/bloc/reward_bloc.dart';
 
 class CoinsCountCard extends StatelessWidget {
   const CoinsCountCard({super.key});
