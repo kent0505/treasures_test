@@ -6,12 +6,14 @@ class SlotWidget extends StatelessWidget {
   const SlotWidget({
     super.key,
     required this.childrens,
+    required this.seconds,
     required this.top,
     this.left = false,
     this.right = false,
   });
 
   final List<Widget> childrens;
+  final int seconds;
   final double top;
   final bool left;
   final bool right;
@@ -37,7 +39,7 @@ class SlotWidget extends StatelessWidget {
       child: Stack(
         children: [
           AnimatedPositioned(
-            duration: const Duration(seconds: 2),
+            duration: Duration(seconds: seconds),
             curve: Curves.easeInOutCirc,
             bottom: top,
             left: 0,
