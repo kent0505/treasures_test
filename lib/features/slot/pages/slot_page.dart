@@ -50,6 +50,7 @@ class _SlotPageState extends State<SlotPage> {
   }
 
   void onChangeAmount(bool plus) {
+    if (active == false) return;
     setState(() {
       if (plus) {
         if (amount <= 90) amount = amount + 10;
