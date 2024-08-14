@@ -10,10 +10,10 @@ bool canClaim = true;
 
 Future<void> getData() async {
   final prefs = await SharedPreferences.getInstance();
-  await prefs.remove('timestamp');
-  await prefs.remove('day');
-  await prefs.remove('coins');
-  await prefs.remove('canClaim');
+  // await prefs.remove('timestamp');
+  // await prefs.remove('day');
+  // await prefs.remove('coins');
+  // await prefs.remove('canClaim');
   coins = prefs.getInt('coins') ?? 100;
   day = prefs.getInt('day') ?? 1;
   timestamp = prefs.getInt('timestamp') ?? 0;

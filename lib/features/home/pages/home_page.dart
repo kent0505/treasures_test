@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,14 +60,15 @@ class _HomePageState extends State<HomePage> {
     if (state is StartState) {
       context.read<HomeBloc>().add(PlayEvent(exit: true));
     } else {
-      SystemNavigator.pop();
+      // SystemNavigator.pop();
+      exit(0);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    // onSound();
+    onSound();
   }
 
   @override
@@ -76,125 +79,119 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) {
-        print('POP');
-      },
-      child: CustomScaffold(
-        body: Padding(
-          padding: EdgeInsets.only(
-            top: 32 + statusBar(context),
-            bottom: 32,
-            left: 62,
-            right: 32,
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 157,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<HomeBloc, HomeState>(
-                      builder: (context, state) {
-                        if (state is StartState) return const CoinsCountCard();
-                        return Container();
-                      },
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        IcoButton(
-                          asset: playing ? 'sound1' : 'sound2',
-                          onPressed: onSound,
-                        ),
-                        const SizedBox(width: 8),
-                        IcoButton(
-                          asset: 'settings',
-                          onPressed: onSettings,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+    return CustomScaffold(
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: 32 + statusBar(context),
+          bottom: 32,
+          left: 62,
+          right: 32,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 157,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      if (state is StartState) return const CoinsCountCard();
+                      return Container();
+                    },
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      IcoButton(
+                        asset: playing ? 'sound1' : 'sound2',
+                        onPressed: onSound,
+                      ),
+                      const SizedBox(width: 8),
+                      IcoButton(
+                        asset: 'settings',
+                        onPressed: onSettings,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const Spacer(),
-              BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  if (state is StartState) {
-                    return Column(
-                      children: [
-                        Row(
-                          children: [
-                            GameCard(
-                              title: 'Slot',
-                              asset: 'slot',
-                              onPressed: onSlot,
-                            ),
-                            const SizedBox(width: 24),
-                            GameCard(
-                              title: 'Roulette',
-                              asset: 'spinner',
-                              onPressed: onRoulette,
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-
+            ),
+            const Spacer(),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                if (state is StartState) {
                   return Column(
                     children: [
-                      const Spacer(flex: 3),
-                      const Center(
-                        child: Text(
-                          'Treasures of the\nEastern Emperors',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.secondary,
-                            fontSize: 36,
-                            fontFamily: Fonts.sancreek,
+                      Row(
+                        children: [
+                          GameCard(
+                            title: 'Slot',
+                            asset: 'slot',
+                            onPressed: onSlot,
                           ),
-                        ),
-                      ),
-                      const Spacer(),
-                      PrimaryButton(
-                        title: 'Play',
-                        asset: 'play',
-                        width: 110,
-                        onPressed: onPlay,
+                          const SizedBox(width: 24),
+                          GameCard(
+                            title: 'Roulette',
+                            asset: 'spinner',
+                            onPressed: onRoulette,
+                          ),
+                        ],
                       ),
                     ],
                   );
-                },
-              ),
-              const Spacer(),
-              BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  return SizedBox(
-                    width: 187,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if (state is StartState) const DailyRewardButton(),
-                        const Spacer(),
-                        PrimaryButton(
-                          title: 'Exit',
-                          asset: 'exit',
-                          height: 56,
-                          width: 117,
-                          onPressed: () {
-                            onExit(state);
-                          },
+                }
+
+                return Column(
+                  children: [
+                    const Spacer(flex: 3),
+                    const Center(
+                      child: Text(
+                        'Treasures of the\nEastern Emperors',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.secondary,
+                          fontSize: 36,
+                          fontFamily: Fonts.sancreek,
                         ),
-                      ],
+                      ),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+                    const Spacer(),
+                    PrimaryButton(
+                      title: 'Play',
+                      asset: 'play',
+                      width: 110,
+                      onPressed: onPlay,
+                    ),
+                  ],
+                );
+              },
+            ),
+            const Spacer(),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return SizedBox(
+                  width: 187,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (state is StartState) const DailyRewardButton(),
+                      const Spacer(),
+                      PrimaryButton(
+                        title: 'Exit',
+                        asset: 'exit',
+                        height: 56,
+                        width: 117,
+                        onPressed: () {
+                          onExit(state);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
